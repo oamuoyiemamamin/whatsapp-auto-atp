@@ -1,4 +1,4 @@
-Waiting time (seconds):10
+Waiting time (seconds):15
 Hello {0},
 
 A gentle reminder, our class today is going to start at *5:30 PM (IST🇮🇳) | 8:00 PM (MYT🇲🇾)*. Please enter the meeting *5-10 minutes* before class to avoid any connection issues.

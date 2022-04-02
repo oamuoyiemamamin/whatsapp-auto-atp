@@ -71,6 +71,8 @@ for recepient in lstRecepients:
     elif phone == "null" and group_id != "null":
         if not group_id in tempDictGroupIDs.keys():
             tempDictGroupIDs[group_id] = name
+            if greeting != "null":
+                tempDictGroupIDs[group_id] = greeting
         else:
             if greeting == "null":
                 print(f'Error on person {name}.\nError: Greeting must be present if sending through group for multiple people.')
