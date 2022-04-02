@@ -1,23 +1,12 @@
 Waiting time (seconds):10
-Hi there! I'm attending the ifocus anniversary celebrations and you can join (ZOOM ID 816 6722 0303) tonight at 8pm
+Hello {0},
 
-Video: https://tinyurl.com/will-you-join
-Flyer link: https://tinyurl.com/iFocus-16-flyer
+A gentle reminder, our class today is going to start at *5:30 PM (IST🇮🇳) | 8:00 PM (MYT🇲🇾)*. Please enter the meeting *5-10 minutes* before class to avoid any connection issues.
 
-== TRIVIKRAM SRINIVAS GARU @ iFocus Mission!! ==
+🔗 Meeting link: https://tinyurl.com/startingoffiniot005-meeting
 
-Yes!! You heard right!!
+Today we are going to have a *hands-on session using hardware parts*, please prepare your hardware kits for today. _You may explore the hardware components beforehand._
 
-Our *Legendary Telugu filmmaker*, Sri Trivikram Srinivas garu is going to grace our 16th Anniversary Celebrations virtually along with us
-
-31-12-2021, 8:00 PM IST
-
-Let's not even think of missing this great opportunity to share and learn experiences from an amazing personality
-
-A word from Trivikram Srinivas garu: https://tinyurl.com/trivikram-speech
-
-Thank you,
-Dr. Ram (Maram Venkata Ramana),
+Shrijan M.,
+Admin & Tutor for _Starting off in IoT!_,
 AI Tech Park Sdn. Bhd.
-
-_This is an automated message sent by Automation Script by Shrijan Maram, AI Tech Park Sdn. Bhd._
