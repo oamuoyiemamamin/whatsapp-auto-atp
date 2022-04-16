@@ -1,0 +1,13 @@
+Waiting time (seconds):15
+Hello {0},
+
+A gentle reminder, our class today is going to start at 5:30 PM (IST) | 8:00 PM (MYT). Please enter the meeting 5-10 minutes before class to avoid any connection issues.
+
+>> Meeting link: https://tinyurl.com/startingoffiniot005-meeting
+
+Today's project: *Monitoring Temperature data through Cloud*
+Today we are going to have a hands-on session using hardware parts, please prepare your hardware kits for today. Please also prepare an android phone to connect to bluetooth.
+
+Shrijan M.,
+Admin & Tutor for Starting off in IoT!,
+AI Tech Park Sdn. Bhd.
