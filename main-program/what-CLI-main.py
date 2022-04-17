@@ -51,7 +51,6 @@ def sendGroupMsg(lst_given, content, waiting_time=15):
             print("Error on group id {}\nError: {}".format(groupID, f"If we wait for {waiting_time} seconds on this group, it won't send the phone number on time. Try again."))
             print(dictTime)
 
-
 raw_df = pd.read_excel('./recepient_db.xlsx', converters={"phone": str})
 recepients = raw_df.fillna("null")
 
