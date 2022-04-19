@@ -149,4 +149,8 @@ with open(msg_f) as fh:
 # print(msg)
 #################################
 
+testButton = Button(root, bg="red")
+testButton.pack()
+testButton.pack()
+
 root.mainloop()
