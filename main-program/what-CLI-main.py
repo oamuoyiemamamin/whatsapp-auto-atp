@@ -1,12 +1,10 @@
-from re import T
-from tkinter import ttk
-from tokenize import group
 import pywhatkit as what
 import time
 import pyautogui as pg
 from datetime import datetime
 import pandas as pd
 from tkinter import *
+import os
 
 def scheduleWhatsapp():
     """This function is for simplifying the sendwhatmsg() from the pywhatkit library"""
@@ -64,14 +62,17 @@ group_id: is used to send messages to a group, is prioritised if both phone and 
 greeting: is used for the greeting in groups, if absent when sending a group message, "name" will be used
 """
 
+# print(os.path.dirname(os.path.abspath(__file__)))
+directoryPath = os.path.dirname(os.path.abspath(__file__))
+
+raw_df = pd.read_excel(directoryPath + r'\\recepient_db.xlsx', converters={"phone": str})
+recepients = raw_df.fillna("null")
+
 root = Tk()
 width, height = "1000", "600"
 root.geometry("{}x{}".format(width, height))
 root.title("WhatsApp Automation - AI Tech Park Sdn. Bhd.")
 # root.resizable(0,0)
-
-raw_df = pd.read_excel('./main-program/recepient_db.xlsx', converters={"phone": str})
-recepients = raw_df.fillna("null")
 
 lstRecepients = []
 lstPhoneGroup = []
@@ -94,8 +95,8 @@ for recepient in lstRecepients:
             tempDictGroupIDs[group_id] = name
             if greeting != "null":
                 tempDictGroupIDs[group_id] = greeting
+        # If there is no greeting but the group_id is present, raise error
         else:
-            # If there is no greeting but the group_id is present, raise error
             if greeting == "null":
                 print(f'Error on person {name}.\nError: Greeting must be present if sending through group for multiple people.')
                 break
@@ -122,7 +123,7 @@ for id, greeting in tempDictGroupIDs.items():
 
 print(lstPhoneGroup, lstGroupSendGroup, tempDictGroupIDs, sep='\n')
 
-msg_f = "./main-program/message.txt"
+msg_f = directoryPath + r"\\message.txt"
 
 with open(msg_f, 'r') as fh:
     msg = "".join(fh.readlines()[1:])
@@ -140,8 +141,8 @@ with open(msg_f) as fh:
 #         lstPhNum.append(line)
 #################################
 
-# sendMsg(lstPhoneGroup, msg, waiting_seconds)
-# sendGroupMsg(lstGroupSendGroup, msg, waiting_time=waiting_seconds)
+sendMsg(lstPhoneGroup, msg, waiting_seconds)
+sendGroupMsg(lstGroupSendGroup, msg, waiting_time=waiting_seconds)
 
 ######## Testing Code ########
 # sendGroupMsg(lstGroupID, msg)

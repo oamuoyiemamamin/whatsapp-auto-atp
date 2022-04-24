@@ -1,13 +1,21 @@
 Waiting time (seconds):15
 Hello {0},
 
-A gentle reminder, our class today is going to start at 5:30 PM (IST) | 8:00 PM (MYT). Please enter the meeting 5-10 minutes before class to avoid any connection issues.
+Our _Starting off in IoT!_ course is coming to an end. Now is the time to apply our knowledge and experience to complete a 20 question test and complete a practical assignment.
 
->> Meeting link: https://tinyurl.com/startingoffiniot005-meeting
+*== REMINDERS ==*
+1. This test will be auto-closed after 60 minutes once it is opened. After it is closed all the answers will disappear. *Please only open the test link only if you are planning to answer.*
+2. This test contains *20 questions only*.
+3. Please make sure to hit the "Submit" button at the end of the test to submit the test.
+4. The passing score for this test is *60%*. If the passing score is not reached, the student needs to redo the test after 1 day of revision until the passing score is reached.
+5. This test is due on *30 April 2022, 5 pm (Indian Time).*
+6. *There are no more classes.* Please refer to the recordings in Google Classroom for revision.
 
-Today's project: *Monitoring Temperature data through Cloud*
-Today we are going to have a hands-on session using hardware parts, please prepare your hardware kits for today. Please also prepare an android phone to connect to bluetooth.
+*Test link: https://tinyurl.com/AiTechPark-IoT-FinalTest*
 
-Shrijan M.,
-Admin & Tutor for Starting off in IoT!,
+Please contact us if you encounter any problems accessing the test or any doubts. The practical assignment will be posted shortly.
+
+Thank you,
+Shrijan M,
+Admin and Tutor for _Starting off in IoT!_ course,
 AI Tech Park Sdn. Bhd.
