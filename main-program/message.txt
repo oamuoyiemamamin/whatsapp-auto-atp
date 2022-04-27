@@ -1,7 +1,7 @@
 Waiting time (seconds):15
 Hello {0},
 
-Our _Starting off in IoT!_ course is coming to an end. Now is the time to apply our knowledge and experience to complete a 20 question test and complete a practical assignment.
+Hope you are progressing smoothly! This is a reminder for everyone to complete the final test *before 30 April 2022, 5 pm (Indian Time)*
 
 *== REMINDERS ==*
 1. This test will be auto-closed after 60 minutes once it is opened. After it is closed all the answers will disappear. *Please only open the test link only if you are planning to answer.*

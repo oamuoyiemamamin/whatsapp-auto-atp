@@ -63,9 +63,9 @@ greeting: is used for the greeting in groups, if absent when sending a group mes
 """
 
 # print(os.path.dirname(os.path.abspath(__file__)))
-directoryPath = os.path.dirname(os.path.abspath(__file__))
+directoryPath = StringVar()
 
-raw_df = pd.read_excel(directoryPath + r'\\recepient_db.xlsx', converters={"phone": str})
+raw_df = pd.read_excel(directoryPath + r'/recepient_db.xlsx', converters={"phone": str})
 recepients = raw_df.fillna("null")
 
 root = Tk()
@@ -123,7 +123,7 @@ for id, greeting in tempDictGroupIDs.items():
 
 print(lstPhoneGroup, lstGroupSendGroup, tempDictGroupIDs, sep='\n')
 
-msg_f = directoryPath + r"\\message.txt"
+msg_f = directoryPath + r"/message.txt"
 
 with open(msg_f, 'r') as fh:
     msg = "".join(fh.readlines()[1:])
