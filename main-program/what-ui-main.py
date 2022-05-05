@@ -68,7 +68,7 @@ def importExcelData():
     global lstGroupSendGroup
     global excel_file_path
 
-    excel_file_path = filedialog.askopenfilename(initialdir="/Documents", title="Select an Excel File to Import", filetypes=(("MS Excel", "*.xlsx"), ("All Files", "*.*")))
+    excel_file_path = filedialog.askopenfilename(initialdir="/Documents", title="Select an Excel File to Import", filetypes=(("MS Excel", "*.xlsx"),))
     excel_file_path = excel_file_path.replace("\\", "/")
 
     raw_df = pd.read_excel(excel_file_path, converters={"phone": str})
