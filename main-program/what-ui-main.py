@@ -1,55 +1,15 @@
-import pywhatkit as what
 import time
-import pyautogui as pg
-from datetime import datetime
+import whatsATP
+
 import pandas as pd
-from tkinter import *
+from pystray import MenuItem as item, Menu
+import pystray
+from PIL import Image
+import tkinter as tk
+
 import os
+import threading
 
-def scheduleWhatsapp():
-    """This function is for simplifying the sendwhatmsg() from the pywhatkit library"""
-    # Current time
-    now = datetime.now()
-    currTime = now.strftime("%H:%M")
-    lstTime = list()
-    lstTimeTemp = currTime.split(":")
-    for thing in lstTimeTemp:
-        thing = int(thing)
-        lstTime.append(thing)
-    dictTime = {"H": lstTime[0], "M": lstTime[1] + 1}
-    return dictTime
-
-def sendMsg(lst_given, content_given, waiting_time=15):
-    for name, phNum in lst_given:
-        dictTime = scheduleWhatsapp()
-        try:
-            what.sendwhatmsg(
-                phNum,
-                content_given.format(name),
-                dictTime["H"],
-                dictTime["M"],
-                wait_time=waiting_time,
-                tab_close=True,
-                close_time=10,
-            )
-        except what.core.exceptions.CallTimeException:
-            print("Error on phone number {}\nError: {}".format(phNum, f"If we wait for {waiting_time} seconds on this phone number, it won't send the phone number on time. Try again."))
-
-def sendGroupMsg(lst_given, content, waiting_time=15):
-    for groupID, greeting in lst_given:
-        dictTime = scheduleWhatsapp()
-        try:
-            what.sendwhatmsg_to_group(
-                groupID,
-                content.format(greeting),
-                dictTime["H"],
-                dictTime["M"],
-                wait_time=waiting_time,
-                tab_close=True
-            )
-        except what.core.exceptions.CallTimeException:
-            print("Error on group id {}\nError: {}".format(groupID, f"If we wait for {waiting_time} seconds on this group, it won't send the phone number on time. Try again."))
-            print(dictTime)
 
 """
 We will get the name, email, phone, package (free or paid), group_id (whatsapp group id) and greeting seperately from the excel file
@@ -62,29 +22,54 @@ group_id: is used to send messages to a group, is prioritised if both phone and 
 greeting: is used for the greeting in groups, if absent when sending a group message, "name" will be used
 """
 
-# print(os.path.dirname(os.path.abspath(__file__)))
-directoryPath = StringVar()
 
-raw_df = pd.read_excel(directoryPath + r'/recepient_db.xlsx', converters={"phone": str})
-recepients = raw_df.fillna("null")
+def sendAllMessagesThread(lst_phone, lst_group, content, wait_time):
+    sendMsgThread = threading.Thread(target=whatsATP.sendAllMessages, args=[lst_phone, lst_group, content, wait_time])
+    sendMsgThread.start()
+    # sendMsgThread.join()
 
-root = Tk()
+
+# Window Setup
+root = tk.Tk()
 width, height = "1000", "600"
 root.geometry("{}x{}".format(width, height))
 root.title("WhatsApp Automation - AI Tech Park Sdn. Bhd.")
 # root.resizable(0,0)
+logo = tk.PhotoImage(file="../media/AITECHPARK-logo.png")
+root.iconphoto(False, logo)
 
-lstRecepients = []
+logo_tray = Image.open("../media/AITECHPARK-logo.ico")
+
+
+def quit_window(icon, item):
+    icon.stop()
+    root.destroy()
+
+def show_window(icon, item):
+    icon.stop()
+    root.after(0, root.deiconify)
+
+def withdraw_window():
+    root.withdraw()
+    menu = Menu(item('Show', show_window, default=True), item('Quit', quit_window))
+    icon = pystray.Icon("WhatsApp Automation", logo_tray, "WhatsApp Automation - AI Tech Park", menu)
+    icon.run()
+
+
+raw_df = pd.read_excel(r'./recepient_db.xlsx', converters={"phone": str})
+recipients = raw_df.fillna("null")
+
+lstRecipients = []
 lstPhoneGroup = []
 lstGroupSendGroup = []
 
-for index, value in recepients.iterrows():
-    lstRecepients.append((value["name"], value["email"], value["phone"], value["package"], value["group_id"], value["greeting"]))
+for index, value in recipients.iterrows():
+    lstRecipients.append((value["name"], value["phone"], value["group_id"], value["greeting"]))
 
 tempDictGroupIDs = {}
-for recepient in lstRecepients:
-    name, email, phone, package, group_id, greeting = recepient[0], recepient[1], recepient[2], recepient[3], recepient[4], recepient[5]
-    
+for recipient in lstRecipients:
+    name, phone, group_id, greeting = recipient[0], recipient[1], recipient[2], recipient[3]
+
     # If there is phone and no group_id.
     if phone != "null" and group_id == "null":
         lstPhoneGroup.append((name, phone))
@@ -101,7 +86,7 @@ for recepient in lstRecepients:
                 print(f'Error on person {name}.\nError: Greeting must be present if sending through group for multiple people.')
                 break
             tempDictGroupIDs[group_id] = greeting
-    
+
     # If there is both phone and group_id
     elif phone != "null" and group_id != "null":
         if not group_id in tempDictGroupIDs.keys():
@@ -113,7 +98,7 @@ for recepient in lstRecepients:
                 print(f'Error on person {name}.\nError: Greeting must be present if sending through group for multiple people.')
                 break
             tempDictGroupIDs[group_id] = greeting
-    
+
     # If both are not present
     elif phone == "null" and group_id == "null":
         print(f"The phone number or WhatsApp group id of {name} must be present.")
@@ -123,7 +108,7 @@ for id, greeting in tempDictGroupIDs.items():
 
 print(lstPhoneGroup, lstGroupSendGroup, tempDictGroupIDs, sep='\n')
 
-msg_f = directoryPath + r"/message.txt"
+msg_f = r"./message.txt"
 
 with open(msg_f, 'r') as fh:
     msg = "".join(fh.readlines()[1:])
@@ -141,17 +126,15 @@ with open(msg_f) as fh:
 #         lstPhNum.append(line)
 #################################
 
-sendMsg(lstPhoneGroup, msg, waiting_seconds)
-sendGroupMsg(lstGroupSendGroup, msg, waiting_time=waiting_seconds)
-
 ######## Testing Code ########
 # sendGroupMsg(lstGroupID, msg)
 # sendMsg(lstPhNum, msg, waiting_seconds)
 # print(msg)
 #################################
 
-testButton = Button(root, bg="red")
+testButton = tk.Button(root, text="Send WhatsApp messages!", bg="green", command=lambda: sendAllMessagesThread(lstPhoneGroup, lstGroupSendGroup, msg, waiting_seconds))
 testButton.pack()
-testButton.pack()
+
+root.protocol('WM_DELETE_WINDOW', withdraw_window)
 
 root.mainloop()
