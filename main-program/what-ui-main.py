@@ -134,9 +134,6 @@ with open(msg_f) as fh:
 # print(msg)
 #################################
 
-testButton = Button(root, text="Send WhatsApp messages!", bg="green", command=lambda: sendAllMessagesThread(lstPhoneGroup, lstGroupSendGroup, msg, waiting_seconds))
-testButton.pack()
-
 
 ################## UI Components ##################
 
@@ -149,7 +146,7 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 
-canvas = Canvas(
+mainCanvas = Canvas(
     root,
     bg="#445768",
     height=600,
@@ -159,8 +156,8 @@ canvas = Canvas(
     relief="ridge"
 )
 
-canvas.place(x=0, y=0)
-canvas.create_rectangle(
+mainCanvas.place(x=0, y=0)
+mainCanvas.create_rectangle(
     8.0,
     10.0,
     991.0,
@@ -168,41 +165,41 @@ canvas.create_rectangle(
     fill="#1D2424",
     outline="")
 
-button_image_1 = PhotoImage(
+btnSendMessages_image = PhotoImage(
     file=relative_to_assets("button_1.png"))
-button_1 = Button(
-    image=button_image_1,
+btnSendMessages = Button(
+    image=btnSendMessages_image,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
+    command=lambda: sendAllMessagesThread(lstPhoneGroup, lstGroupSendGroup, msg, waiting_seconds),
     relief="flat",
     bg="#1D2424"
 )
-button_1.place(
+btnSendMessages.place(
     x=551.0,
     y=36.0,
     width=398.0,
     height=58.0
 )
 
-button_image_2 = PhotoImage(
+btnImport_image = PhotoImage(
     file=relative_to_assets("button_2.png"))
-button_2 = Button(
-    image=button_image_2,
+btnImport = Button(
+    image=btnImport_image,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("button_2 clicked"),
     relief="flat",
     bg="#1D2424"
 )
-button_2.place(
+btnImport.place(
     x=51.0,
     y=36.0,
     width=398.0,
     height=58.0
 )
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     9.0,
     123.0,
     497.0,
@@ -210,7 +207,7 @@ canvas.create_rectangle(
     fill="#DCDCDD",
     outline="")
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     503.0,
     123.0,
     991.0,
@@ -218,7 +215,7 @@ canvas.create_rectangle(
     fill="#DCDCDD",
     outline="")
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     111.0,
     146.0,
     395.0,
@@ -226,7 +223,7 @@ canvas.create_rectangle(
     fill="#69849B",
     outline="")
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     605.0,
     146.0,
     889.0,
@@ -234,7 +231,7 @@ canvas.create_rectangle(
     fill="#69849B",
     outline="")
 
-canvas.create_text(
+mainCanvas.create_text(
     172.0,
     156.0,
     anchor="nw",
@@ -243,7 +240,7 @@ canvas.create_text(
     font=("Inter ExtraLight", 25 * -1)
 )
 
-canvas.create_text(
+mainCanvas.create_text(
     683.0,
     156.0,
     anchor="nw",
@@ -252,7 +249,7 @@ canvas.create_text(
     font=("Inter ExtraLight", 25 * -1)
 )
 
-canvas.create_text(
+mainCanvas.create_text(
     122.0,
     216.0,
     anchor="nw",
@@ -261,7 +258,7 @@ canvas.create_text(
     font=("Inter Light", 20 * -1)
 )
 
-canvas.create_text(
+mainCanvas.create_text(
     38.0,
     270.0,
     anchor="nw",
@@ -270,79 +267,79 @@ canvas.create_text(
     font=("Inter Medium", 23 * -1)
 )
 
-entry_image_1 = PhotoImage(
+entryWaitSec_image = PhotoImage(
     file=relative_to_assets("entry_1.png"))
-entry_bg_1 = canvas.create_image(
+entryWaitSec_bg = mainCanvas.create_image(
     328.0,
     227.0,
-    image=entry_image_1
+    image=entryWaitSec_image
 )
-entry_1 = Entry(
+entryWaitSec = Entry(
     bd=0,
     bg="#A8D4D0",
     highlightthickness=0
 )
-entry_1.place(
+entryWaitSec.place(
     x=268.0,
     y=209.0,
     width=120.0,
     height=34.0
 )
 
-entry_image_2 = PhotoImage(
+textareaContent_image = PhotoImage(
     file=relative_to_assets("entry_2.png"))
-entry_bg_2 = canvas.create_image(
+textareaContent_bg = mainCanvas.create_image(
     250.0,
     446.5,
-    image=entry_image_2
+    image=textareaContent_image
 )
-entry_2 = Text(
+textareaContent = Text(
     bd=0,
     bg="#A8D4D0",
     highlightthickness=0
 )
-entry_2.place(
+textareaContent.place(
     x=49.0,
     y=307.0,
     width=402.0,
     height=277.0
 )
 
-button_image_3 = PhotoImage(
+btnEditData_image = PhotoImage(
     file=relative_to_assets("button_3.png"))
-button_3 = Button(
-    image=button_image_3,
+btnEditData = Button(
+    image=btnEditData_image,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("button_3 clicked"),
     relief="flat",
     bg="#CDCDCD"
 )
-button_3.place(
+btnEditData.place(
     x=649.0,
     y=510.0,
     width=201.0,
     height=53.0
 )
 
-button_image_4 = PhotoImage(
+btnInsertGreeting_image = PhotoImage(
     file=relative_to_assets("button_4.png"))
-button_4 = Button(
-    image=button_image_4,
+btnInsertGreeting = Button(
+    image=btnInsertGreeting_image,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("button_4 clicked"),
     relief="flat",
     bg="#CDCDCD"
 )
-button_4.place(
+btnInsertGreeting.place(
     x=326.0,
     y=268.0,
     width=137.0,
     height=40.0
 )
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     535.0,
     219.0,
     965.0,
@@ -350,7 +347,7 @@ canvas.create_rectangle(
     fill="#D0C3BD",
     outline="")
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     728.0,
     287.0,
     730.0,
@@ -358,7 +355,7 @@ canvas.create_rectangle(
     fill="#FFFFFF",
     outline="")
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     552.0,
     332.0,
     952.0,
@@ -366,7 +363,7 @@ canvas.create_rectangle(
     fill="#FFFFFF",
     outline="")
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     552.0,
     379.0,
     952.0,
@@ -374,7 +371,7 @@ canvas.create_rectangle(
     fill="#FFFFFF",
     outline="")
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     552.0,
     428.0,
     952.0,
@@ -382,7 +379,7 @@ canvas.create_rectangle(
     fill="#FFFFFF",
     outline="")
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     570.0,
     239.0,
     684.0,
@@ -390,7 +387,7 @@ canvas.create_rectangle(
     fill="#3D6A66",
     outline="")
 
-canvas.create_text(
+mainCanvas.create_text(
     604.0,
     246.0,
     anchor="nw",
@@ -399,7 +396,7 @@ canvas.create_text(
     font=("Inter Light", 20 * -1)
 )
 
-canvas.create_text(
+mainCanvas.create_text(
     660.0,
     301.0,
     anchor="nw",
@@ -408,7 +405,7 @@ canvas.create_text(
     font=("Inter Light", 20 * -1)
 )
 
-canvas.create_text(
+mainCanvas.create_text(
     580.0,
     345.0,
     anchor="nw",
@@ -417,7 +414,7 @@ canvas.create_text(
     font=("Inter Light", 20 * -1)
 )
 
-canvas.create_text(
+mainCanvas.create_text(
     629.0,
     394.0,
     anchor="nw",
@@ -426,7 +423,7 @@ canvas.create_text(
     font=("Inter Light", 20 * -1)
 )
 
-canvas.create_text(
+mainCanvas.create_text(
     572.0,
     440.0,
     anchor="nw",
@@ -435,7 +432,7 @@ canvas.create_text(
     font=("Inter Light", 20 * -1)
 )
 
-canvas.create_rectangle(
+mainCanvas.create_rectangle(
     753.0,
     238.0,
     927.0,
@@ -443,9 +440,10 @@ canvas.create_rectangle(
     fill="#3D6A66",
     outline="")
 
+# !!! Change all these entries into dropdowns to select the column names
 entry_image_3 = PhotoImage(
     file=relative_to_assets("entry_3.png"))
-entry_bg_3 = canvas.create_image(
+entry_bg_3 = mainCanvas.create_image(
     840.0,
     308.5,
     image=entry_image_3
@@ -464,7 +462,7 @@ entry_3.place(
 
 entry_image_4 = PhotoImage(
     file=relative_to_assets("entry_4.png"))
-entry_bg_4 = canvas.create_image(
+entry_bg_4 = mainCanvas.create_image(
     840.0,
     356.5,
     image=entry_image_4
@@ -483,7 +481,7 @@ entry_4.place(
 
 entry_image_5 = PhotoImage(
     file=relative_to_assets("entry_5.png"))
-entry_bg_5 = canvas.create_image(
+entry_bg_5 = mainCanvas.create_image(
     840.0,
     404.5,
     image=entry_image_5
@@ -502,7 +500,7 @@ entry_5.place(
 
 entry_image_6 = PhotoImage(
     file=relative_to_assets("entry_6.png"))
-entry_bg_6 = canvas.create_image(
+entry_bg_6 = mainCanvas.create_image(
     840.0,
     453.5,
     image=entry_image_6
@@ -519,7 +517,7 @@ entry_6.place(
     height=39.0
 )
 
-canvas.create_text(
+mainCanvas.create_text(
     777.0,
     245.0,
     anchor="nw",
