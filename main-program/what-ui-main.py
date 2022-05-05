@@ -5,11 +5,14 @@ import whatsATP
 
 from pathlib import Path
 import pandas as pd
+import phonenumbers
+
 from pystray import MenuItem as item, Menu
 import pystray
 from PIL import Image
 import tkinter as tk
 from tkinter import Canvas, Entry, Text, Button, PhotoImage
+from tkinter import filedialog
 
 
 """
@@ -42,6 +45,9 @@ root.iconphoto(False, logo)
 
 logo_tray = Image.open("../media/AITECHPARK-logo.ico")
 
+lstPhoneGroup = []
+lstGroupSendGroup = []
+
 
 def quit_window(icon, item):
     icon.stop()
@@ -57,58 +63,78 @@ def withdraw_window():
     icon = pystray.Icon("WhatsApp Automation", logo_tray, "WhatsApp Automation - AI Tech Park", menu)
     icon.run()
 
+def importExcelData():
+    global lstPhoneGroup
+    global lstGroupSendGroup
+    global excel_file_path
 
-raw_df = pd.read_excel(r'./recepient_db.xlsx', converters={"phone": str})
-recipients = raw_df.fillna("null")
+    excel_file_path = filedialog.askopenfilename(initialdir="/Documents", title="Select an Excel File to Import", filetypes=(("MS Excel", "*.xlsx"), ("All Files", "*.*")))
+    excel_file_path = excel_file_path.replace("\\", "/")
 
-lstRecipients = []
-lstPhoneGroup = []
-lstGroupSendGroup = []
+    raw_df = pd.read_excel(excel_file_path, converters={"phone": str})
+    recipients = raw_df.fillna("null")
 
-for index, value in recipients.iterrows():
-    lstRecipients.append((value["name"], value["phone"], value["group_id"], value["greeting"]))
+    lstRecipients = []
 
-tempDictGroupIDs = {}
-for recipient in lstRecipients:
-    name, phone, group_id, greeting = recipient[0], recipient[1], recipient[2], recipient[3]
+    recipients.columns = [column.lower() for column in recipients.columns]
 
-    # If there is phone and no group_id.
-    if phone != "null" and group_id == "null":
-        lstPhoneGroup.append((name, phone))
-    # If there is no phone and there is a group_id.
-    elif phone == "null" and group_id != "null":
-        # If the group_id does not exist.
-        if not group_id in tempDictGroupIDs.keys():
-            tempDictGroupIDs[group_id] = name
-            if greeting != "null":
+    for index, value in recipients.iterrows():
+        lstRecipients.append((value["name"], value["phone"], value["group_id"], value["greeting"]))
+
+    tempDictGroupIDs = {}
+    for recipient in lstRecipients:
+        name, phone, group_id, greeting = recipient[0], recipient[1], recipient[2], recipient[3]
+
+        # If there is phone and no group_id.
+        if phone != "null" and group_id == "null":
+            lstPhoneGroup.append((name, phone))
+        # If there is no phone and there is a group_id.
+        elif phone == "null" and group_id != "null":
+            # If the group_id does not exist.
+            if not group_id in tempDictGroupIDs.keys():
+                tempDictGroupIDs[group_id] = name
+                if greeting != "null":
+                    tempDictGroupIDs[group_id] = greeting
+            # If there is no greeting but the group_id is present, raise error
+            else:
+                if greeting == "null":
+                    print(f'Error on person {name}.\nError: Greeting must be present if sending through group for multiple people.')
+                    break
                 tempDictGroupIDs[group_id] = greeting
-        # If there is no greeting but the group_id is present, raise error
-        else:
-            if greeting == "null":
-                print(f'Error on person {name}.\nError: Greeting must be present if sending through group for multiple people.')
-                break
-            tempDictGroupIDs[group_id] = greeting
 
-    # If there is both phone and group_id
-    elif phone != "null" and group_id != "null":
-        if not group_id in tempDictGroupIDs.keys():
-            tempDictGroupIDs[group_id] = name
-            if greeting != "null":
+        # If there is both phone and group_id
+        elif phone != "null" and group_id != "null":
+            if not group_id in tempDictGroupIDs.keys():
+                tempDictGroupIDs[group_id] = name
+                if greeting != "null":
+                    tempDictGroupIDs[group_id] = greeting
+            else:
+                if greeting == "null":
+                    print(f'Error on person {name}.\nError: Greeting must be present if sending through group for multiple people.')
+                    break
                 tempDictGroupIDs[group_id] = greeting
-        else:
-            if greeting == "null":
-                print(f'Error on person {name}.\nError: Greeting must be present if sending through group for multiple people.')
-                break
-            tempDictGroupIDs[group_id] = greeting
 
-    # If both are not present
-    elif phone == "null" and group_id == "null":
-        print(f"The phone number or WhatsApp group id of {name} must be present.")
+        # If both are not present
+        elif phone == "null" and group_id == "null":
+            print(f"The phone number or WhatsApp group id of {name} must be present.")
 
-for id, greeting in tempDictGroupIDs.items():
-    lstGroupSendGroup.append((id, greeting))
+    for id, greeting in tempDictGroupIDs.items():
+        lstGroupSendGroup.append((id, greeting))
 
-print(lstPhoneGroup, lstGroupSendGroup, tempDictGroupIDs, sep='\n')
+    print(lstPhoneGroup, lstGroupSendGroup, tempDictGroupIDs, sep='\n')
+
+def editExcelData():
+    # subprocess.run(['start', f'"{excel_file_path}"'], check=True)
+    # import subprocess, os, platform
+    # if platform.system() == 'Darwin':  # macOS
+    #     subprocess.call(('open', filepath))
+    # elif platform.system() == 'Windows':  # Windows
+    #     os.startfile(filepath)
+    # else:  # linux variants
+    #     subprocess.call(('xdg-open', filepath))
+
+    os.startfile(excel_file_path)
+
 
 msg_f = r"./message.txt"
 
@@ -188,7 +214,7 @@ btnImport = Button(
     image=btnImport_image,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=importExcelData,
     relief="flat",
     bg="#1D2424"
 )
@@ -311,7 +337,7 @@ btnEditData = Button(
     image=btnEditData_image,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=editExcelData,
     relief="flat",
     bg="#CDCDCD"
 )
