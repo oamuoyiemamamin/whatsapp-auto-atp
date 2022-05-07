@@ -208,6 +208,33 @@ btnSendMessages.place(
     height=58.0
 )
 
+popup = tk.Menu(root, tearoff=0)
+popup.add_command(label="Quit", command=root.destroy)
+
+def popupm(bt):
+    try:
+        x = bt.winfo_rootx()
+        y = bt.winfo_rooty()
+        popup.tk_popup(x-63, y+20, 0)
+    finally:
+        popup.grab_release()
+
+btnSettings_image = PhotoImage(file=relative_to_assets("settings-gear_40x40.png"))
+btnSettings = Button(
+    image=btnSettings_image,
+    borderwidth=3,
+    highlightthickness=0,
+    relief="flat",
+    bg="#1D2424"
+)
+btnSettings.configure(command=lambda: popupm(btnSettings))
+btnSettings.place(
+    x=950.0,
+    y=10.0,
+    width=40.0,
+    height=40.0
+)
+
 btnImport_image = PhotoImage(
     file=relative_to_assets("button_2.png"))
 btnImport = Button(
