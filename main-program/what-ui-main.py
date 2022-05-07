@@ -1,7 +1,7 @@
 import time
 import os
 import threading
-import whatsATP
+import whatsATP as wutil
 
 from pathlib import Path
 import pandas as pd
@@ -28,7 +28,7 @@ greeting: is used for the greeting in groups, if absent when sending a group mes
 
 
 def sendAllMessagesThread(lst_phone, lst_group, content, wait_time):
-    sendMsgThread = threading.Thread(target=whatsATP.sendAllMessages, args=[lst_phone, lst_group, content, wait_time])
+    sendMsgThread = threading.Thread(target=wutil.sendAllMessages, args=[lst_phone, lst_group, content, wait_time])
     sendMsgThread.start()
     # sendMsgThread.join()
 
