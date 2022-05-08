@@ -6,15 +6,11 @@ Every field is Nullable.
 
 Fields:
 - Name
-- Email
 - Send Type
     - 0 for phone send
     - 1 for group send
 - Phone
     - For personal message
-- Package
-    - Free (Specify days)
-    - Premium send for everyday
 - Group ID
     - The WhatsApp group ID
 - greeting
