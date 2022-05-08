@@ -20,3 +20,8 @@ Fields:
 
 🔗 Sample Excel file link: 
 🔗 Check Notion page for all info: https://www.notion.so/WhatsApp-Automation-82f14cbba0cc456191e9429089cbb9ba
+
+## Message.txt Format
+**Do not change first line. Change the number only.**
+- The message that will be sent is the rest of the file other than the first line.
+- Use "{0}" to insert the greeting. Eg: Hello {0}, --> Hello Shrijan, || (In case a greeting is specified) Hello {0}, --> Hello everyone,
