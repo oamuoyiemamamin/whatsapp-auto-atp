@@ -19,7 +19,6 @@ Fields:
     - You can use "all" or "everyone" if you want to tell multiple people in the same group. Else, just leave empty.
 
 🔗 Sample Excel file link: 
-🔗 Check Notion page for all info: https://www.notion.so/WhatsApp-Automation-82f14cbba0cc456191e9429089cbb9ba
 
 ## Message.txt Format
 **Do not change first line. Change the number only.**
